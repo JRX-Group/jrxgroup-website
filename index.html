@@ -97,13 +97,13 @@
         /* Hero Section */
         .hero {
             margin-top: 120px;
-            min-height: 80vh;
+            min-height: 50vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
             position: relative;
             background: linear-gradient(180deg, rgba(200, 145, 22, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
         }
@@ -122,9 +122,9 @@
         }
 
         .hero h1 {
-            font-size: 72px;
+            font-size: 64px;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: linear-gradient(135deg, #ffffff, #c89116);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -133,18 +133,18 @@
         }
 
         .hero p {
-            font-size: 24px;
+            font-size: 20px;
             color: #c89116;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             letter-spacing: 3px;
             animation: fadeInUp 1s ease 0.2s backwards;
         }
 
         .hero-description {
-            font-size: 18px;
+            font-size: 16px;
             color: rgba(255, 255, 255, 0.8);
-            max-width: 800px;
-            line-height: 1.8;
+            max-width: 700px;
+            line-height: 1.6;
             animation: fadeInUp 1s ease 0.4s backwards;
         }
 
@@ -161,6 +161,14 @@
             margin-bottom: 60px;
             text-align: center;
             letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .cards-container {
@@ -177,6 +185,13 @@
             border-radius: 12px;
             transition: all 0.3s ease;
             cursor: pointer;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .card:hover {
@@ -309,8 +324,8 @@
             <div class="logo-placeholder">JRX</div>
         </div>
         <nav>
-            <a href="#company1">BluIso Games</a>
-            <a href="#company2">JRXDev</a>
+            <a href="#company1">Company One</a>
+            <a href="#company2">Company Two</a>
         </nav>
     </header>
 
@@ -327,13 +342,14 @@
         <h2 class="section-title">Our Portfolio</h2>
         <div class="cards-container">
             <div class="card" id="company1">
-                <h3>BluIso Games</h3>
+                <h3>Company One</h3>
                 <p>
-                    World class independent game development studio. Working on new and original innovative experiences. 
+                    Leading the industry with innovative solutions and unparalleled expertise. 
+                    Our commitment to excellence drives exceptional results and sustainable growth.
                 </p>
             </div>
             <div class="card" id="company2">
-                <h3>JRXDev</h3>
+                <h3>Company Two</h3>
                 <p>
                     Pioneering new frontiers with cutting-edge technology and strategic vision. 
                     Delivering transformative value through innovation and operational excellence.
@@ -377,5 +393,32 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Scroll Animation Observer
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should animate on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const sectionTitles = document.querySelectorAll('.section-title');
+            const cards = document.querySelectorAll('.card');
+            
+            sectionTitles.forEach(title => observer.observe(title));
+            cards.forEach(card => observer.observe(card));
+        });
+    </script>
 </body>
 </html>
